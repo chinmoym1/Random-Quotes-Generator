@@ -1,0 +1,362 @@
+body {
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    animation: backgroundShift 10s ease infinite alternate;
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    font-weight: 600;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    font-size: 1rem;
+    user-select: none;
+}
+
+@keyframes backgroundShift {
+    0% {
+        background: linear-gradient(135deg, #bf6bd0, #b79100)
+    }
+    50% {
+        background: llinear-gradient(135deg, #8dd5ea, #17662b);
+    }
+    100% {
+        background: linear-gradient(135deg, #f6c6a3, #962d61);
+    }
+}
+
+#quote-container {
+    position: relative;
+    width: 600px;
+    height: 250px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+    overflow: visible;
+    cursor: pointer;
+    perspective: 1000px;
+    background: linear-gradient(135deg, #f0e6d2, #d9cba3);
+    border: 2px solid #bfae7a;
+    transition: opacity 0.6s ease;
+}
+
+#quote-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #c9b77a 0%, #f0e6d2 50%, #c9b77a 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 50%);
+    z-index: 2;
+    transition: transform 0.6s ease;
+    transform-origin: top center;
+}
+
+#quote-container.open::before {
+    transform: rotateX(-180deg);
+}
+
+#quote-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    color: #5a4a1a;
+    font-style: italic;
+    font-size: 1.8rem;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.6s ease, top 0.6s ease, transform 0.6s ease;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+#quote-container.open #quote-content {
+    opacity: 1;
+    top: -50px;
+    transform: translate(-50%, 0);
+}
+
+#quote-content.outside {
+    top: -150px;
+    opacity: 1;
+    transform: translate(-50%, 0);
+    transition: top 0.6s ease 0.6s, opacity 0.6s ease 0.6s;
+}
+
+#quote-container.closed::before {
+    transform: rotateX(0deg);
+}
+
+#quote-container.closed #quote-content {
+    opacity: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#author {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    color: #7a6b3a;
+    text-align: right;
+}
+
+#new-quote {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    /* transform: translateX(-50%); */
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    padding: 0.85rem 2rem;
+    border-radius: 40px;
+    color: #5a4a1a;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.4s ease, transform 0.3s ease;
+    box-shadow: 0 6px 15px rgba(255, 255, 255, 0.6);
+    animation: pulse 2.5s infinite;
+    z-index: 9999;
+}
+
+#new-quote:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.8);
+}
+
+.fadeInText {
+    animation: fadeInText 1s ease forwards;
+}
+
+.swing {
+    display: inline-block;
+    animation: swing 1s ease forwards;
+}
+
+@keyframes fadeInText {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes swing {
+    20% { transform: rotate(15deg); }
+    40% { transform: rotate(-10deg); }
+    60% { transform: rotate(5deg); }
+    80% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255, 75, 43, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 15px 15px rgba(255, 75, 43, 0);
+    }
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@media (max-width: 600px) {
+    #quote-container {
+        width: 90vw;
+        height: auto;
+        min-height: 240px;
+        padding: 20px;
+        box-sizing: border-box;
+        margin-top: 200px;
+    }
+
+    #quote-content {
+        font-size: 1.2rem;
+        width: 100%;
+        top: 40%;
+    }
+
+    #author {
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    #new-quote {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        /* transform: translateX(-50%); */
+        padding: 0.7rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    footer {
+        font-size: 0.9rem;
+        padding: 0.8rem 0;
+    }
+}
+
+#quote-container.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#quote-content {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    width: 90%;
+    transform: translateX(-50%);
+    color: #5a4a1a;
+    font-style: italic;
+    font-size: 1.8rem;
+    opacity: 0;
+    transition: opacity 0.6s ease 0.6s, top 0.6s ease 0.6s;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+#quote-container.open #quote-content {
+    opacity: 1;
+    top: -150px;
+}
+
+
+#quote-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #c9b77a 0%, #f0e6d2 50%, #c9b77a 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 50%);
+    z-index: 2;
+    transition: transform 0.6s ease;
+    transform-origin: top center;
+}
+
+#quote-container.open::before {
+    transform: rotateX(-180deg);
+}
+
+#quote-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    transform: translate(-50%, -50%);
+    color: #5a4a1a;
+    font-style: italic;
+    font-size: 1.8rem;
+    opacity: 0;
+    transition: opacity 0.6s ease 0.6s, transform 0.6s ease 0.6s;
+    transform-origin: bottom center;
+    z-index: 1;
+    pointer-events: none;
+}
+
+#quote-container.open #quote-content {
+    opacity: 1;
+    transform: translate(-50%, -70%);
+    pointer-events: auto;
+}
+
+#author {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    color: #7a6b3a;
+    text-align: right;
+}
+
+#new-quote {
+    position: absolute;
+    bottom: 15px;
+    left: 35%;
+    /* transform: translateX(-50%); */
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    padding: 0.85rem 2rem;
+    border-radius: 40px;
+    color: #5a4a1a;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.4s ease, transform 0.3s ease;
+    box-shadow: 0 6px 15px rgba(255, 255, 255, 0.6);
+    animation: pulse 2.5s infinite;
+    z-index: 3;
+}
+
+#new-quote:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.8);
+}
+
+.fadeInText {
+    animation: fadeInText 1s ease forwards;
+}
+
+.swing {
+    display: inline-block;
+    animation: swing 1s ease forwards;
+}
+
+@keyframes fadeInText {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes swing {
+    20% { transform: rotate(15deg); }
+    40% { transform: rotate(-10deg); }
+    60% { transform: rotate(5deg); }
+    80% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255, 75, 43, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 15px 15px rgba(255, 75, 43, 0);
+    }
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
